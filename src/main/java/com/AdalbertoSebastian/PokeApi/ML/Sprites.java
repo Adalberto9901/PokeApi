@@ -2,14 +2,14 @@ package com.AdalbertoSebastian.PokeApi.ML;
 
 class Sprites {
 
-    private String backdefault;
+    private String front_default;
 
-    public String getBackdefault() {
-        return backdefault;
+    public String getFront_default() {
+        return front_default;
     }
 
-    public void setBackdefault(String backdefault) {
-        this.backdefault = backdefault;
+    public void setFront_default(String front_default) {
+        this.front_default = front_default;
     }
 
 }
