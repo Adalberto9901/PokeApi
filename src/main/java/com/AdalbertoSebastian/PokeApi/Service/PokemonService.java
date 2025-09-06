@@ -1,5 +1,7 @@
 package com.AdalbertoSebastian.PokeApi.Service;
 
+import com.AdalbertoSebastian.PokeApi.ML.PokeApiResponse;
+import com.AdalbertoSebastian.PokeApi.ML.Results;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 public class PokemonService {
-  private final RestTemplate restTemplate = new RestTemplate();
+private final RestTemplate restTemplate = new RestTemplate();
 
     private final String BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
     
@@ -38,6 +40,6 @@ public class PokemonService {
             }
         }
 
-        System.out.println("✅ Total pokémones cargados: " + allPokemons.size());
+        System.out.println(" Total pokémones cargados: " + allPokemons.size());
     }
 }
