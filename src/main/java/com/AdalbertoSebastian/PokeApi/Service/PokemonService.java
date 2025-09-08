@@ -45,7 +45,7 @@ public class PokemonService {
     @PostConstruct
     public void loadPokemonPages() {
         int limit = 20;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 52; i++) {
             int offset = i * limit;
             String url = BASE_URL + "?offset=" + offset + "&limit=" + limit;
 

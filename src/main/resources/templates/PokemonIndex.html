@@ -1,97 +1,198 @@
-
 <html xmlns:th="http://www.thymeleaf.org">
     <head>        
-        <title>Tarjetas de Información</title>
+        <title>Pokedex</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <style>
             body {
                 font-family: 'Segoe UI', sans-serif;
-                background-color: #f4f4f4;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
+                background: linear-gradient(to bottom, #e04434, #e04434);
+                margin: 0;
+                padding: 0;
+            }
+
+            h1 {
+                font-size: 4em;
+                color: #ffd505;
+                text-shadow:
+                    -4px -4px 0 #2A75BB,
+                    4px -4px 0 #2A75BB,
+                    -4px  4px 0 #2A75BB,
+                    4px  4px 0 #2A75BB,
+                    5px  5px 5px #000;
+                text-align: center;
+                text-transform: uppercase;
+                margin: 40px 0 20px 0;
+            }
+
+            .container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                max-width: 1200px;
+                margin: 0 auto;
                 padding: 40px;
             }
 
+            @media (max-width: 992px) {
+                .container {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (max-width: 600px) {
+                .container {
+                    grid-template-columns: 1fr;
+                }
+            }
+
             .card {
-                background-color: white;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                width: 250px;
-                margin: 20px;
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.15);
                 overflow: hidden;
-                transition: transform 0.2s ease-in-out;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                text-align: center;
+                position: relative;
+                padding: 20px;
             }
 
             .card:hover {
-                transform: translateY(-5px);
+                transform: translateY(-10px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+                border: 2px solid #FFCB05;
             }
 
             .card img {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
+                width: 160px;
+                height: 160px;
+                object-fit: contain;
+                margin: 10px auto;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+            .card:hover img {
+                transform: scale(1.1) rotate(-5deg);
             }
 
             .card-content {
                 padding: 15px;
             }
 
-            .card-content h3 {
-                margin-top: 0;
-                margin-bottom: 10px;
-                font-size: 20px;
+            .card-content h2 {
+                font-size: 24px;
+                margin: 5px 0;
                 color: #333;
+                text-transform: capitalize;
             }
 
-            .card-content p {
-                margin: 0;
+            .pokemon-id {
+                font-weight: bold;
+                color: #888;
                 font-size: 14px;
-                color: #666;
+            }
+
+            .types {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-top: 12px;
+            }
+
+            .type {
+                padding: 6px 14px;
+                border-radius: 20px;
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+                text-transform: capitalize;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            }
+
+            /* Colores según el tipo */
+            .type.grass {
+                background: #78C850;
+            }
+            .type.fire {
+                background: #F08030;
+            }
+            .type.water {
+                background: #4068c7;
+            }
+            .type.bug {
+                background: #A8B820;
+            }
+            .type.normal {
+                background: #A8A878;
+            }
+            .type.poison {
+                background: #A040A0;
+            }
+            .type.electric {
+                background: #F8D030;
+            }
+            .type.ground {
+                background: #E0C068;
+            }
+            .type.fairy {
+                background: #EE99AC;
+            }
+            .type.fighting {
+                background: #C03028;
+            }
+            .type.flying {
+                background: #9ad1d6;
+            }
+            .type.psychic {
+                background: #F85888;
+            }
+            .type.rock {
+                background: #B8A038;
+            }
+            .type.ghost {
+                background: #705898;
+            }
+            .type.ice {
+                background: #6dc0d1;
+            }
+            .type.dragon {
+                background: #7038F8;
+            }
+            .type.dark {
+                background: #705848;
+            }
+            .type.steel {
+                background: #B8B8D0;
             }
         </style>
     </head>
     <body>
-        <div>TODO write content</div>
-
-<!--        <table>
-            <tr  th:each="pokemon : ${pokemons}">
-                <td th:text="${pokemon.name}">
-
-                </td>
-                <td th:text="${pokemon.url}">
-
-                </td>
-
-            </tr>
-
-        </table>-->
-
+        <h1>Pokédex</h1>
 
         <div class="container">
-        <div class="card" th:each="pokemon : ${pokemons}">
-            <!--<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="th:text='${pokemon.name}'">-->
-            <img style="width: 250px" th:src="${pokemon.sprites.front_default == null} ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png' : ${pokemon.sprites.front_default}"
-                  alt="th:text='${pokemon.name}'">
-            <div class="card-content">
-                <h3 th:text="${pokemon.name}"></h3>
-                <p th:text="${pokemon.id}"></p>
-                <p>Bulbasaur es un Pokémon de tipo Planta/Veneno. Es conocido por tener una semilla en su espalda.</p>
-            </div>
-        </div>
-        </div>
-        
-<!--        <div class="container">
-        <div class="card">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur">
-            <div class="card-content">
-                <h3>Bulbasaur</h3>
-                <p>Bulbasaur es un Pokémon de tipo Planta/Veneno. Es conocido por tener una semilla en su espalda.</p>
-            </div>
-        </div>
-        </div>-->
+            <div class="card" th:each="pokemon : ${pokemons}">
+                <img th:src="${pokemon.sprites.front_default == null} ? 
+                     'https://upload.wikimedia.org/wikipedia/commons/6/6a/Pokeball.png' : 
+                     ${pokemon.sprites.front_default}" 
+                     th:alt="${pokemon.name}" />
 
+                <div class="card-content">
+                    <p class="pokemon-id" th:text="'#' + ${pokemon.id}"></p>
+                    <h2 th:text="${pokemon.name}"></h2>
+
+                    <!-- Tipos de Pokémon -->
+                    <div class="types">
+                        <span class="type" 
+                              th:each="tipo : ${pokemon.types}" 
+                              th:text="${tipo.type.name}" 
+                              th:classappend="' ' + ${tipo.type.name}">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
