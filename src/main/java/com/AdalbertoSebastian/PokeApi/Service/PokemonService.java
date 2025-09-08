@@ -1,23 +1,45 @@
 package com.AdalbertoSebastian.PokeApi.Service;
 
+import com.AdalbertoSebastian.PokeApi.ML.Flavor_text_entries;
 import com.AdalbertoSebastian.PokeApi.ML.PokeApiResponse;
+import com.AdalbertoSebastian.PokeApi.ML.Pokemon;
+import com.AdalbertoSebastian.PokeApi.ML.SpeciesDetail;
+import com.AdalbertoSebastian.PokeApi.ML.PokemonDetail;
 import com.AdalbertoSebastian.PokeApi.ML.Results;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-
+@Service
 public class PokemonService {
-private final RestTemplate restTemplate = new RestTemplate();
 
+    private final RestTemplate restTemplate = new RestTemplate();
     private final String BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
-    
+
     private List<Results> allPokemons = new ArrayList<>();
+    private Map<String, PokemonDetail> pokemonDetailsCache = new HashMap<>();
+    private Map<String, PokemonDetail> pokemonDetailsCacheById = new HashMap<>();
 
     public List<Results> getAllPokemons() {
         return allPokemons;
+    }
+
+    public Collection<PokemonDetail> getAllDetails() {
+        return pokemonDetailsCache.values();
+    }
+
+    public PokemonDetail getPokemonDetail(String name) {
+        if (isNumeric(name)) {
+            return pokemonDetailsCacheById.get(name);
+        } else {
+        }
+        return pokemonDetailsCache.get(name.toLowerCase());
     }
 
     @PostConstruct
@@ -33,13 +55,60 @@ private final RestTemplate restTemplate = new RestTemplate();
                 if (response.getStatusCode().is2xxSuccessful()) {
                     List<Results> pageResults = response.getBody().getResults();
                     allPokemons.addAll(pageResults);
-                    System.out.println("Página " + (i + 1) + " cargada con " + pageResults.size() + " pokémones.");
+
+                    // Cargar detalles en caché ya sea por nombre o por id
+                    for (Results result : pageResults) {
+                        String name = result.getName();
+                        String detailUrl = BASE_URL + name;
+                        try {
+                            ResponseEntity<PokemonDetail> detailResponse = restTemplate.getForEntity(detailUrl, PokemonDetail.class);
+                            PokemonDetail detail = detailResponse.getBody();
+                            pokemonDetailsCache.put(name.toLowerCase(), detail);
+
+                            pokemonDetailsCacheById.put(String.valueOf(detail.getId()), detail);
+                        } catch (Exception ex) {
+                            System.err.println("Error cargando detalles de " + name + ": " + ex.getMessage());
+                        }
+                    }
+
                 }
             } catch (Exception e) {
                 System.err.println("Error al cargar página " + (i + 1) + ": " + e.getMessage());
             }
         }
 
-        System.out.println(" Total pokémones cargados: " + allPokemons.size());
+        System.out.println(" Pokemones y detalles cargados en memoria: " + pokemonDetailsCache.size());
+    }
+//
+//    public String getDescription(String nameOrId) {
+//
+//        try {
+//            ResponseEntity<SpeciesDetail> response = restTemplate.getForEntity(nameOrId, SpeciesDetail.class);
+//            if (response.getStatusCode().is2xxSuccessful()) {
+//                List<Flavor_text_entries> entries = response.getBody().getFlavor_text_entries();
+//                for (Flavor_text_entries entry : entries) {
+////                    if (entry.getLenguage().getName().equals("es")) {
+//                    if (entry.getLenguage().getName().equals("es")) {
+//                        return entry.getFlavor_text().replaceAll("\n", " ").replaceAll("\f", " ");
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            System.err.println("Error obteniendo descripción: " + e.getMessage());
+//        }
+//
+//        return "Descripción no disponible.";
+//    }
+
+    public boolean isNumeric(String str) {
+        if (str == null) {
+            return false;
+        }
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.AdalbertoSebastian.PokeApi.ML;
 
-public class MoveSlot {
+public class Moves {
 
     private Move move;
 

@@ -3,7 +3,7 @@ package com.AdalbertoSebastian.PokeApi.ML;
 public class Types {
 
     private String slot;
-    public TypeSlot typeSlot;
+    public Type type;
 
     public String getSlot() {
         return slot;
@@ -13,12 +13,12 @@ public class Types {
         this.slot = slot;
     }
 
-    public TypeSlot getTypeSlot() {
-        return typeSlot;
+    public Type getTypeSlot() {
+        return type;
     }
 
-    public void setTypeSlot(TypeSlot typeSlot) {
-        this.typeSlot = typeSlot;
+    public void setTypeSlot(Type type) {
+        this.type = type;
     }
 
 }

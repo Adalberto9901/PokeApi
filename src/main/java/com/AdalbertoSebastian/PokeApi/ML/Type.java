@@ -1,6 +1,6 @@
 package com.AdalbertoSebastian.PokeApi.ML;
 
-class Species {
+class Type {
 
     private String name;
     private String url;

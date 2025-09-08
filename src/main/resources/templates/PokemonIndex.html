@@ -1,24 +1,97 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>TODO supply a title</title>
+    <head>        
+        <title>Tarjetas de Información</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                background-color: #f4f4f4;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 40px;
+            }
+
+            .card {
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                width: 250px;
+                margin: 20px;
+                overflow: hidden;
+                transition: transform 0.2s ease-in-out;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+            .card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .card-content {
+                padding: 15px;
+            }
+
+            .card-content h3 {
+                margin-top: 0;
+                margin-bottom: 10px;
+                font-size: 20px;
+                color: #333;
+            }
+
+            .card-content p {
+                margin: 0;
+                font-size: 14px;
+                color: #666;
+            }
+        </style>
     </head>
     <body>
         <div>TODO write content</div>
-        
-        <table>
+
+<!--        <table>
             <tr  th:each="pokemon : ${pokemons}">
                 <td th:text="${pokemon.name}">
-                    
+
                 </td>
                 <td th:text="${pokemon.url}">
-                    
+
                 </td>
-                
+
             </tr>
-            
-        </table>
+
+        </table>-->
+
+
+        <div class="container">
+        <div class="card" th:each="pokemon : ${pokemons}">
+            <!--<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="th:text='${pokemon.name}'">-->
+            <img style="width: 250px" th:src="${pokemon.sprites.front_default == null} ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png' : ${pokemon.sprites.front_default}"
+                  alt="th:text='${pokemon.name}'">
+            <div class="card-content">
+                <h3 th:text="${pokemon.name}"></h3>
+                <p th:text="${pokemon.id}"></p>
+                <p>Bulbasaur es un Pokémon de tipo Planta/Veneno. Es conocido por tener una semilla en su espalda.</p>
+            </div>
+        </div>
+        </div>
+        
+<!--        <div class="container">
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur">
+            <div class="card-content">
+                <h3>Bulbasaur</h3>
+                <p>Bulbasaur es un Pokémon de tipo Planta/Veneno. Es conocido por tener una semilla en su espalda.</p>
+            </div>
+        </div>
+        </div>-->
+
     </body>
 </html>

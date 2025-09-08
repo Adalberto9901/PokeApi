@@ -1,6 +1,6 @@
 package com.AdalbertoSebastian.PokeApi.ML;
 
-public class AbilitySlot {
+public class Abilities {
 
     private Ability ability;
     private boolean is_hidden;

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gráfico de Radar - Pokémon Stats</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            text-align: center;
+        }
+        canvas {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Estadísticas de Bulbasaur</h2>
+            <table>
+            <tr  >
+                <td th:text="${pokemon.id}"></td>
+                <td th:text="${pokemon.name}"></td>
+                <td th:text="${pokemon.isDefault}"></td>
+                <td th:text="${pokemon.order}"></td>
+                <td th:text="${pokemon.baseExperience}"></td>
+                <td th:text="${pokemon.height}"></td>
+                <!--<td th:text="${pokemon.forms.name}"></td>-->
+                <!--<td th:text="${pokemon.forms.url}"></td>-->
+                <td th:text="${pokemon.species.name}"></td>
+                <td th:text="${pokemon.species.url}"></td>
+                <td ><image style="width: 250px" th:src="${pokemon.sprites.front_default == null} ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png' : ${pokemon.sprites.front_default}"></td>
+<!--                <td th:text="${pokemon.types.slot}"></td>
+                <td th:text="${pokemon.types.type.name}"></td>-->
+            </tr>
+        </table>
+    <canvas id="radarChart"></canvas>
+
+    <script>
+        const ctx = document.getElementById('radarChart').getContext('2d');
+
+        const data = {
+            labels: ['HP', 'Attack', 'Defense', 'Speed', 'Sp. Atk', 'Sp. Def'],
+            datasets: [{
+                label: 'Bulbasaur',
+                data: [45, 49, 49, 45, 65, 65],
+                fill: true,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgb(75, 192, 192)',
+                pointBackgroundColor: 'rgb(75, 192, 192)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(75, 192, 192)'
+            }]
+        };
+
+        const config = {
+            type: 'radar',
+            data: data,
+            options: {
+                responsive: true,
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100 // puedes ajustar según el rango de tus stats
+                    }
+                }
+            },
+        };
+
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>

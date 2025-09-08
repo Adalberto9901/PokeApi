@@ -2,21 +2,24 @@ package com.AdalbertoSebastian.PokeApi.ML;
 
 import java.util.List;
 
-public class Pokemon {
 
+public class PokemonDetail {
     private int id;
+    private String name;
+    private boolean isDefault;
+    private int order;
     private int baseExperience;
     private int height;
-    private String name;
     private int weight;
+    private String locationAreaEncounters;
 
-    private List<Ability> abilities;
-    private List<Moves> moves;
+    private List<Abilities> abilities;
     private List<Forms> forms;
+    private List<Moves> moves;
     private Species species;
     private Sprites sprites;
     private List<Stats> stats;
-    private List<Type> types;
+    private List<Types> types;
 
     public int getId() {
         return id;
@@ -24,6 +27,30 @@ public class Pokemon {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     public int getBaseExperience() {
@@ -42,14 +69,6 @@ public class Pokemon {
         this.height = height;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getWeight() {
         return weight;
     }
@@ -58,20 +77,20 @@ public class Pokemon {
         this.weight = weight;
     }
 
-    public List<Ability> getAbilities() {
+    public String getLocationAreaEncounters() {
+        return locationAreaEncounters;
+    }
+
+    public void setLocationAreaEncounters(String locationAreaEncounters) {
+        this.locationAreaEncounters = locationAreaEncounters;
+    }
+
+    public List<Abilities> getAbilities() {
         return abilities;
     }
 
-    public void setAbilities(List<Ability> abilities) {
+    public void setAbilities(List<Abilities> abilities) {
         this.abilities = abilities;
-    }
-
-    public List<Moves> getMoves() {
-        return moves;
-    }
-
-    public void setMoves(List<Moves> moves) {
-        this.moves = moves;
     }
 
     public List<Forms> getForms() {
@@ -80,6 +99,14 @@ public class Pokemon {
 
     public void setForms(List<Forms> forms) {
         this.forms = forms;
+    }
+
+    public List<Moves> getMoves() {
+        return moves;
+    }
+
+    public void setMoves(List<Moves> moves) {
+        this.moves = moves;
     }
 
     public Species getSpecies() {
@@ -106,12 +133,13 @@ public class Pokemon {
         this.stats = stats;
     }
 
-    public List<Type> getTypes() {
+    public List<Types> getTypes() {
         return types;
     }
 
-    public void setTypes(List<Type> types) {
+    public void setTypes(List<Types> types) {
         this.types = types;
     }
-
+    
+    
 }

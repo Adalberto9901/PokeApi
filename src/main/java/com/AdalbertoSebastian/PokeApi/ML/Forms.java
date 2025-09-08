@@ -1,6 +1,6 @@
 package com.AdalbertoSebastian.PokeApi.ML;
 
-class Species {
+class Forms {
 
     private String name;
     private String url;
@@ -20,5 +20,6 @@ class Species {
     public void setUrl(String url) {
         this.url = url;
     }
+
 
 }

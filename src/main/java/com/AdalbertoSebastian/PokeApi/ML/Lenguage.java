@@ -1,6 +1,7 @@
 package com.AdalbertoSebastian.PokeApi.ML;
 
-class Species {
+
+class Lenguage {
 
     private String name;
     private String url;
@@ -20,5 +21,5 @@ class Species {
     public void setUrl(String url) {
         this.url = url;
     }
-
+    
 }

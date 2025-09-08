@@ -1,7 +1,8 @@
 package com.AdalbertoSebastian.PokeApi.ML;
 
-class TypeSlot {
 
+public class Egg_groups {
+    
     private String name;
     private String url;
 
@@ -20,5 +21,4 @@ class TypeSlot {
     public void setUrl(String url) {
         this.url = url;
     }
-
 }
