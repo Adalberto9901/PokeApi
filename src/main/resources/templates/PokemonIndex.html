@@ -563,9 +563,9 @@
             </h1>
         </div>
 
-        <form action="action" method="get" class="search-bar">
+        <form id="formBusqueda" name="formBusqueda"  method="get" class="search-bar">
 
-            <select name="tipo" class="type-select">
+            <select name="tipo" class="type-select" id="tipo">
                 <option value="">Todos los tipos</option>
                 <option value="grass">Planta</option>
                 <option value="fire">Fuego</option>
@@ -715,6 +715,43 @@
 
                     container.appendChild(particle);
                 }
+            });
+        </script>
+        
+                <script>
+            document.getElementById("formBusqueda").addEventListener("submit", function (event) {
+                event.preventDefault(); // Evita el envío tradicional del formulario
+
+                const nombre = document.getElementById("pokemon").value.trim();
+                const tipo = document.getElementById("tipo").value;
+
+                if (!nombre) {
+                    alert("Por favor, escribe el nombre o número del Pokémon.");
+                    return;
+                }
+
+                // Construir la URL con path variable y query param
+                const url = `/pokemon/detalle/${encodeURIComponent(nombre)}?tipo=${encodeURIComponent(tipo)}`;
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest' // importante si el backend quiere distinguir entre peticiones normales y AJAX
+                    }
+                })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Error en la petición");
+                            }
+                            return response.text(); // asumiendo que el backend devuelve HTML
+                        })
+                        .then(html => {
+                            // Inyectamos la respuesta HTML en el contenedor
+                            document.querySelector('.container').innerHTML = html;
+                        })
+                        .catch(error => {
+                            console.error("Ocurrió un error:", error);
+                        });
             });
         </script>
     </body>

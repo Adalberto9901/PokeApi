@@ -42,7 +42,8 @@ public class PokemonService {
 
     public PokemonDetail getPokemonDetail(String key) {
         if (isNumeric(key)) {
-            return pokemonDetailsCacheById.get(key);
+            int id = Integer.parseInt(key);
+            return pokemonDetailsCacheById.getOrDefault(id, null);
         }
 
         // buscar por nombre
@@ -157,6 +158,7 @@ public class PokemonService {
             return false;
         }
     }
+
     //metodo de paginacion 
     public List<PokemonDetail> getPokemonsByPage(int page, int size) {
         int fromIndex = Math.max(0, (page - 1) * size);
@@ -165,6 +167,7 @@ public class PokemonService {
         return new ArrayList<>(pokemonDetailsCacheById.values())
                 .subList(fromIndex, toIndex);
     }
+
     // guardar el numero total de paginas
     public int getTotalPages(int pageSize) {
         return (int) Math.ceil((double) pokemonDetailsCacheById.size() / pageSize);

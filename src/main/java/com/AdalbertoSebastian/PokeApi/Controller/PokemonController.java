@@ -51,7 +51,7 @@ public class PokemonController {
     }
 
     @GetMapping("/detalle/{name}")
-    public String detalle(@PathVariable String name, Model model) {
+    public String detalle(@PathVariable(required = false) String name, @RequestParam(required = false) String tipo, Model model) {
         PokemonDetail detail = PokemonService.getPokemonDetail(name);
 
         model.addAttribute("pokemon", detail);
