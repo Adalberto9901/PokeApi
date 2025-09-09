@@ -32,7 +32,7 @@ public class PokemonController {
     public String Index(Model model) {
 //        List<Results> pokemons = PokemonService.getAllPokemons();
         List<PokemonDetail> pokemons = new ArrayList<>(PokemonService.getAllDetails());
-
+        PokemonService.assignValidSprites(pokemons); // llamada al metodo para asignar el Sprite a cada pokemon
         model.addAttribute("pokemons", pokemons);
         return "PokemonIndex";
     }

@@ -4,6 +4,7 @@ import com.AdalbertoSebastian.PokeApi.ML.Flavor_text_entries;
 import com.AdalbertoSebastian.PokeApi.ML.PokeApiResponse;
 import com.AdalbertoSebastian.PokeApi.ML.Pokemon;
 import com.AdalbertoSebastian.PokeApi.ML.SpeciesDetail;
+import com.AdalbertoSebastian.PokeApi.ML.Sprites;
 import com.AdalbertoSebastian.PokeApi.ML.PokemonDetail;
 import com.AdalbertoSebastian.PokeApi.ML.Results;
 import jakarta.annotation.PostConstruct;
@@ -12,6 +13,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -108,6 +111,31 @@ public class PokemonService {
             Integer.parseInt(str);
             return true;
         } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    //Metodo para validacion y la extraccion del Sprite, en caso de no tener .gif trae el estatico .png
+    public void assignValidSprites(List<PokemonDetail> pokemons) {
+        for (PokemonDetail p : pokemons) {
+            int id = p.getId();
+
+            String gifUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/" + id + ".gif";
+            String pngUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + id + ".png";
+
+            if (urlExists(gifUrl)) {
+                p.getSprites().setFront_default(gifUrl);
+            } else {
+                p.getSprites().setFront_default(pngUrl);
+            }
+        }
+    }
+
+    private boolean urlExists(String url) {
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.HEAD, null, String.class);
+            return response.getStatusCode() == HttpStatus.OK;
+        } catch (Exception e) {
             return false;
         }
     }

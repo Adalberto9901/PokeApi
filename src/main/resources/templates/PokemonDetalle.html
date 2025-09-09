@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-    <h2>Estadísticas de Bulbasaur</h2>
+    <h2>Estadísticas del Pokemon</h2>
             <table>
             <tr  >
                 <td th:text="${pokemon.id}"></td>
@@ -25,13 +25,10 @@
                 <td th:text="${pokemon.order}"></td>
                 <td th:text="${pokemon.baseExperience}"></td>
                 <td th:text="${pokemon.height}"></td>
-                <!--<td th:text="${pokemon.forms.name}"></td>-->
-                <!--<td th:text="${pokemon.forms.url}"></td>-->
                 <td th:text="${pokemon.species.name}"></td>
                 <td th:text="${pokemon.species.url}"></td>
                 <td ><image style="width: 250px" th:src="${pokemon.sprites.front_default == null} ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png' : ${pokemon.sprites.front_default}"></td>
-<!--                <td th:text="${pokemon.types.slot}"></td>
-                <td th:text="${pokemon.types.type.name}"></td>-->
+
             </tr>
         </table>
     <canvas id="radarChart"></canvas>
