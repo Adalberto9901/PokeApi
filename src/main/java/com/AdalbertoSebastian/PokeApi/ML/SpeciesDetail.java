@@ -10,7 +10,7 @@ private int capture_rate;
 private Color color;
 private List<Egg_groups> egg_groups;
 private Evolution_chain evolution_chain;
-private List<Flavor_text_entries> flavor_text_entries;
+private List<FlavorTextEntry> flavor_text_entries;
 
     public int getBase_happiness() {
         return base_happiness;
@@ -52,11 +52,11 @@ private List<Flavor_text_entries> flavor_text_entries;
         this.evolution_chain = evolution_chain;
     }
 
-    public List<Flavor_text_entries> getFlavor_text_entries() {
+    public List<FlavorTextEntry> getFlavor_text_entries() {
         return flavor_text_entries;
     }
 
-    public void setFlavor_text_entries(List<Flavor_text_entries> flavor_text_entries) {
+    public void setFlavor_text_entries(List<FlavorTextEntry> flavor_text_entries) {
         this.flavor_text_entries = flavor_text_entries;
     }
 

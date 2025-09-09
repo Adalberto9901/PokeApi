@@ -1,10 +1,10 @@
 package com.AdalbertoSebastian.PokeApi.ML;
 
 
-public class Flavor_text_entries {
+public class FlavorTextEntry {
 
     private String flavor_text;
-    private Lenguage lenguage;
+    private Language language;
     private Version version;
 
     public String getFlavor_text() {
@@ -15,13 +15,14 @@ public class Flavor_text_entries {
         this.flavor_text = flavor_text;
     }
 
-    public Lenguage getLenguage() {
-        return lenguage;
+    public Language getLanguage() {
+        return language;
     }
 
-    public void setLenguage(Lenguage lenguage) {
-        this.lenguage = lenguage;
+    public void setLanguage(Language language) {
+        this.language = language;
     }
+
 
     public Version getVersion() {
         return version;

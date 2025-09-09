@@ -20,6 +20,7 @@ public class PokemonDetail {
     private Sprites sprites;
     private List<Stats> stats;
     private List<Types> types;
+    private String descripcion;
 
     public int getId() {
         return id;
@@ -140,6 +141,36 @@ public class PokemonDetail {
     public void setTypes(List<Types> types) {
         this.types = types;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
     
+    public static class Species {
+
+    private String name;
+    private String url;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+}
     
 }

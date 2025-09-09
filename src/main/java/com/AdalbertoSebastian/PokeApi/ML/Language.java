@@ -1,7 +1,7 @@
 package com.AdalbertoSebastian.PokeApi.ML;
 
 
-class Lenguage {
+class Language {
 
     private String name;
     private String url;

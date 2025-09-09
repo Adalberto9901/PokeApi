@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,23 +30,32 @@ public class PokemonController {
     private PokemonService PokemonService;
 
     @GetMapping("index")
-    public String Index(Model model) {
-//        List<Results> pokemons = PokemonService.getAllPokemons();
-        List<PokemonDetail> pokemons = new ArrayList<>(PokemonService.getAllDetails());
-        PokemonService.assignValidSprites(pokemons); // llamada al metodo para asignar el Sprite a cada pokemon
+    public String Index(@RequestParam(defaultValue = "1") int page, Model model) {
+        int pageSize = 25;
+
+        int totalPages = PokemonService.getTotalPages(pageSize);
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPages) {
+            page = totalPages;
+        }
+
+        List<PokemonDetail> pokemons = PokemonService.getPokemonsByPage(page, pageSize);
+        PokemonService.assignValidSprites(pokemons);
+
         model.addAttribute("pokemons", pokemons);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
         return "PokemonIndex";
     }
 
     @GetMapping("/detalle/{name}")
-//       @ResponseBody
-//    public PokemonDetail detalle(@PathVariable String name, Model model) {
     public String detalle(@PathVariable String name, Model model) {
         PokemonDetail detail = PokemonService.getPokemonDetail(name);
 
         model.addAttribute("pokemon", detail);
         return "PokemonDetalle";
-//        return detail;
     }
 
     @GetMapping("/prueba")
