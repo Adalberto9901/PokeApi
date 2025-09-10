@@ -4,6 +4,7 @@ import com.AdalbertoSebastian.PokeApi.ML.PokeApiResponse;
 import com.AdalbertoSebastian.PokeApi.ML.PokemonDetail;
 import com.AdalbertoSebastian.PokeApi.ML.PokemonSpecies;
 import com.AdalbertoSebastian.PokeApi.ML.Results;
+import com.AdalbertoSebastian.PokeApi.ML.Sprites;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -133,19 +134,27 @@ public class PokemonService {
         }
     }
 
-    //Metodo para validacion y la extraccion del Sprite, en caso de no tener .gif trae el estatico .png
+// Método actualizado para asignar todos los sprites
     public void assignValidSprites(List<PokemonDetail> pokemons) {
-        for (PokemonDetail p : pokemons) {
-            int id = p.getId();
+        for (PokemonDetail pokemon : pokemons) {
+            int id = pokemon.getId();
 
-            String gifUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/" + id + ".gif";
-            String pngUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + id + ".png";
+            String frontGif = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/" + id + ".gif";
+            String backGif = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/back/" + id + ".gif";
+            String frontShinyGif = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/shiny/" + id + ".gif";
+            String backShinyGif = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/back/shiny/" + id + ".gif";
 
-            if (urlExists(gifUrl)) {
-                p.getSprites().setFront_default(gifUrl);
-            } else {
-                p.getSprites().setFront_default(pngUrl);
-            }
+            String frontPng = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + id + ".png";
+            String backPng = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/back/" + id + ".png";
+            String frontShinyPng = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/" + id + ".png";
+            String backShinyPng = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/back/shiny/" + id + ".png";
+
+            Sprites sprite = pokemon.getSprites();
+
+            sprite.setFront_default(urlExists(frontGif) ? frontGif : frontPng);
+            sprite.setBack_default(urlExists(backGif) ? backGif : backPng);
+            sprite.setFront_shiny(urlExists(frontShinyGif) ? frontShinyGif : frontShinyPng);
+            sprite.setBack_shiny(urlExists(backShinyGif) ? backShinyGif : backShinyPng);
         }
     }
 

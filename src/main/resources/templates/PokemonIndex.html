@@ -551,456 +551,403 @@
                 box-shadow: 0 6px 18px rgba(0,0,0,0.25);
             }
 
-            /*             PANTALLA CARGA
-                        #loading-screen {
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background: #111;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            justify-content: center;
-                            z-index: 9999;
-                            color: #fff;
-                            font-family: 'Press Start 2P', cursive;
-                        }
-            
-                         Pokéball animada 
-                        .pokeball {
-                            width: 80px;
-                            height: 80px;
-                            background: white;
-                            border: 4px solid black;
-                            border-radius: 50%;
-                            position: relative;
-                            overflow: hidden;
-                            animation: shake 1.2s infinite;
-                        }
-            
-                        .pokeball::before {
-                            content: "";
-                            position: absolute;
-                            top: 0;
-                            width: 100%;
-                            height: 50%;
-                            background: red;
-                        }
-            
-                        .pokeball::after {
-                            content: "";
-                            position: absolute;
-                            top: 35%;
-                            left: 35%;
-                            width: 30%;
-                            height: 30%;
-                            background: white;
-                            border: 4px solid black;
-                            border-radius: 50%;
-                            z-index: 2;
-                        }
-            
-                         Animación de la pokeball 
-                        @keyframes shake {
-                            0% {
-                                transform: translate(0, 0) rotate(0deg);
-                            }
-                            20% {
-                                transform: translate(-5px, 0) rotate(-20deg);
-                            }
-                            40% {
-                                transform: translate(5px, 0) rotate(20deg);
-                            }
-                            60% {
-                                transform: translate(-5px, 0) rotate(-10deg);
-                            }
-                            80% {
-                                transform: translate(5px, 0) rotate(10deg);
-                            }
-                            100% {
-                                transform: translate(0, 0) rotate(0deg);
-                            }
-                        }
-            
-                         Texto 
-                        .loading-text {
-                            margin-top: 20px;
-                            font-size: 14px;
-                        }
-            
-                         Barra de progreso 
-                        .progress-bar {
-                            margin-top: 20px;
-                            width: 200px;
-                            height: 10px;
-                            background: #333;
-                            border: 2px solid #fff;
-                            border-radius: 10px;
-                            overflow: hidden;
-                        }
-            
-                        .progress {
-                            width: 0%;
-                            height: 100%;
-                            background: linear-gradient(90deg, red, yellow, green);
-                            animation: loadProgress 3s linear forwards;
-                        }
-            
-                        @keyframes loadProgress {
-                            from {
-                                width: 0%;
-                            }
-                            to {
-                                width: 100%;
-                            }
-                        }*/
+            /*            PANTALLA CARGA*/
+            #loading-screen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #111;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                color: #fff;
+                font-family: 'Press Start 2P', cursive;
+            }
+
+            /*            Pokéball animada*/
+            .pokeball {
+                width: 80px;
+                height: 80px;
+                background: white;
+                border: 4px solid black;
+                border-radius: 50%;
+                position: relative;
+                overflow: hidden;
+                animation: shake 1.2s infinite;
+            }
+
+            .pokeball::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: 50%;
+                background: red;
+            }
+
+            .pokeball::after {
+                content: "";
+                position: absolute;
+                top: 35%;
+                left: 35%;
+                width: 30%;
+                height: 30%;
+                background: white;
+                border: 4px solid black;
+                border-radius: 50%;
+                z-index: 2;
+            }
+
+            /*            Animación de la pokeball*/
+            @keyframes shake {
+                0% {
+                    transform: translate(0, 0) rotate(0deg);
+                }
+                20% {
+                    transform: translate(-5px, 0) rotate(-20deg);
+                }
+                40% {
+                    transform: translate(5px, 0) rotate(20deg);
+                }
+                60% {
+                    transform: translate(-5px, 0) rotate(-10deg);
+                }
+                80% {
+                    transform: translate(5px, 0) rotate(10deg);
+                }
+                100% {
+                    transform: translate(0, 0) rotate(0deg);
+                }
+            }
+
+            /*            Texto*/
+            .loading-text {
+                margin-top: 20px;
+                font-size: 14px;
+            }
+
+            /*            Barra de progreso*/
+            .progress-bar {
+                margin-top: 20px;
+                width: 200px;
+                height: 10px;
+                background: #333;
+                border: 2px solid #fff;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .progress {
+                width: 0%;
+                height: 100%;
+                background: linear-gradient(90deg, red, yellow, green);
+                animation: loadProgress 3s linear forwards;
+            }
+
+            @keyframes loadProgress {
+                from {
+                    width: 0%;
+                }
+                to {
+                    width: 100%;
+                }
+            }
         </style>
-    </style>
-</head>
-<body>
-    <div class="bg-blob" aria-hidden="true"></div>
-    <div class="particles" id="particles"></div>
+    </head>
+    <body>
+        <div class="bg-blob" aria-hidden="true"></div>
+        <div class="particles" id="particles"></div>
 
-    <div class="header">
-        <div class="pokeball" aria-hidden="true"></div>
-        <h1>
-            <a href="/pokemon/index">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" 
-                     alt="Pokédex" 
-                     class="pokemon-logo">
-            </a>
-        </h1>
-    </div>
-
-
-    <form action="/pokemon/index" id="formBusqueda" name="formBusqueda"  method="get" class="search-bar">
-
-        <select name="tipo" class="type-select" id="tipo">
-            <option value="">Todos los tipos</option>
-            <option value="grass">Planta</option>
-            <option value="fire">Fuego</option>
-            <option value="flying">Volador</option>
-            <option value="water">Agua</option>
-            <option value="bug">Bicho</option>
-            <option value="normal">Normal</option>
-            <option value="poison">Veneno</option>
-            <option value="electric">Eléctrico</option>
-            <option value="ground">Tierra</option>
-            <option value="fairy">Hada</option>
-            <option value="fighting">Lucha</option>
-            <option value="psychic">Psíquico</option>
-            <option value="rock">Roca</option>
-            <option value="ghost">Fantasma</option>
-            <option value="ice">Hielo</option>
-            <option value="dragon">Dragón</option>
-            <option value="dark">Siniestro</option>
-            <option value="steel">Acero</option>
-        </select>
-
-        <div class="search-input-wrapper">
-            <input type="text" class="search-input" placeholder="Nombre o número (ej. Pikachu o 25)"
-                   id="pokemon" name="search">
+        <div class="header">
+            <div class="pokeball" aria-hidden="true"></div>
+            <h1>
+                <a href="/pokemon/index">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" 
+                         alt="Pokédex" 
+                         class="pokemon-logo">
+                </a>
+            </h1>
         </div>
 
-        <button type="submit" class="search-button">Buscar</button>
-    </form>
 
-    <!--     Pantalla de carga estilo Pokédex 
+        <form action="/pokemon/index" id="formBusqueda" name="formBusqueda"  method="get" class="search-bar">
+
+            <select name="tipo" class="type-select" id="tipo">
+                <option value="">Todos los tipos</option>
+                <option value="grass">Planta</option>
+                <option value="fire">Fuego</option>
+                <option value="flying">Volador</option>
+                <option value="water">Agua</option>
+                <option value="bug">Bicho</option>
+                <option value="normal">Normal</option>
+                <option value="poison">Veneno</option>
+                <option value="electric">Eléctrico</option>
+                <option value="ground">Tierra</option>
+                <option value="fairy">Hada</option>
+                <option value="fighting">Lucha</option>
+                <option value="psychic">Psíquico</option>
+                <option value="rock">Roca</option>
+                <option value="ghost">Fantasma</option>
+                <option value="ice">Hielo</option>
+                <option value="dragon">Dragón</option>
+                <option value="dark">Siniestro</option>
+                <option value="steel">Acero</option>
+            </select>
+
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Nombre o número (ej. Pikachu o 25)"
+                       id="pokemon" name="search">
+            </div>
+
+            <button type="submit" class="search-button">Buscar</button>
+        </form>
+
+        <!--        Pantalla de carga estilo Pokédex -->
         <div id="loading-screen">
             <div class="pokeball"></div>
             <p class="loading-text">Cargando Pokédex...</p>
             <div class="progress-bar">
                 <div class="progress"></div>
             </div>
-        </div>-->
+        </div>
 
-    <div class="container">
+        <div class="container">
 
-        <!-- cada tarjeta -->
-        <div class="card" th:each="pokemon, iterStat : ${pokemons}">
-            <div class="card-inner">
-                <!-- FRONT -->
-                <div class="card-face card-front">
-                    <div class="pokemon-id" th:text="'#' + ${pokemon.id}"></div>
-                    <img class="pokemon-image"
-                         th:src="${pokemon.sprites.front_default}"
-                         th:alt="${pokemon.name}" />
-                    <div class="card-title">
-                        <h2 th:text="${pokemon.name}"></h2>
-                    </div>
+            <!-- cada tarjeta -->
+            <div class="card" th:each="pokemon, iterStat : ${pokemons}">
+                <div class="card-inner">
+                    <!-- FRONT -->
+                    <div class="card-face card-front">
+                        <div class="pokemon-id" th:text="'#' + ${pokemon.id}"></div>
+                        <img class="pokemon-image"
+                             th:src="${pokemon.sprites.front_default}"
+                             th:alt="${pokemon.name}" />
+                        <div class="card-title">
+                            <h2 th:text="${pokemon.name}"></h2>
+                        </div>
 
-                    <div class="types">
-                        <span class="type" 
-                              th:each="tipo : ${pokemon.types}" 
-                              th:text="${tipo.type.name}" 
-                              th:classappend="' ' + ${tipo.type.name}">
-                        </span>
-                    </div>
-                </div>
-
-                <!-- BACK -->
-                <div class="card-face card-back">
-                    <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
-                        <div style="font-weight:800; text-transform:capitalize;" th:text="${pokemon.name}">Pokemon</div>
-                        <div style="font-size:12px; color:#666;" th:text="'#' + ${pokemon.id}"></div>
-                    </div>
-
-                    <div style="margin-top:12px; font-size:13px; color:#444; font-weight:700;">Base Stats</div>
-
-                    <div class="stats">
-                        <div class="stat-row" th:each="st : ${pokemon.stats}">
-                            <div class="stat-name" th:text="${st.stat.name}">hp</div>
-                            <div class="stat-bar">
-                                <div class="stat-fill" th:style="'width:' + ${st.base_stat} + '%;'"></div>
-                            </div>
-                            <div class="stat-value" th:text="${st.base_stat}">45</div>
+                        <div class="types">
+                            <span class="type" 
+                                  th:each="tipo : ${pokemon.types}" 
+                                  th:text="${tipo.type.name}" 
+                                  th:classappend="' ' + ${tipo.type.name}">
+                            </span>
                         </div>
                     </div>
-                    <div style="flex:1;"></div>
-                    <div style="width:100%; display:flex; justify-content:center; margin-top:12px;">
-                        <button class="btn" type="button" th:onclick="'location.href=\'/pokemon/detalle/' + ${pokemon.id} + '\';'">Detail</button>
+
+                    <!-- BACK -->
+                    <div class="card-face card-back">
+                        <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+                            <div style="font-weight:800; text-transform:capitalize;" th:text="${pokemon.name}">Pokemon</div>
+                            <div style="font-size:12px; color:#666;" th:text="'#' + ${pokemon.id}"></div>
+                        </div>
+
+                        <div style="margin-top:12px; font-size:13px; color:#444; font-weight:700;">Base Stats</div>
+
+                        <div class="stats">
+                            <div class="stat-row" th:each="st : ${pokemon.stats}">
+                                <div class="stat-name" th:text="${st.stat.name}">hp</div>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" th:style="'width:' + ${st.base_stat} + '%;'"></div>
+                                </div>
+                                <div class="stat-value" th:text="${st.base_stat}">45</div>
+                            </div>
+                        </div>
+                        <div style="flex:1;"></div>
+                        <div style="width:100%; display:flex; justify-content:center; margin-top:12px;">
+                            <button class="btn" type="button" th:onclick="'location.href=\'/pokemon/detalle/' + ${pokemon.id} + '\';'">Detail</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- PAGINACION -->
-    <div class="pagination" th:if="${totalPages > 1}">
-        <!-- Botón anterior -->
-        <a th:if="${currentPage > 1}" 
-           th:href="@{/pokemon/index(page=${currentPage - 1})}" 
-           class="page-btn">&laquo; Anterior</a>
+        <!-- PAGINACION -->
+        <div class="pagination" th:if="${totalPages > 1}">
+            <!-- Botón anterior -->
+            <a th:if="${currentPage > 1}" 
+               th:href="@{/pokemon/index(page=${currentPage - 1})}" 
+               class="page-btn">&laquo; Anterior</a>
 
-        <span th:each="i : ${#numbers.sequence(
-              (currentPage > 10 ? currentPage - 10 : 1),
-              (currentPage + 9 <= totalPages ? currentPage + 9 : totalPages)
-              )}">
-            <a th:href="@{/pokemon/index(page=${i})}" 
-               th:text="${i}" 
-               th:classappend="${i == currentPage} ? ' active'" 
-               class="page-btn"></a>
-        </span>
+            <span th:each="i : ${#numbers.sequence(
+                  (currentPage > 10 ? currentPage - 10 : 1),
+                  (currentPage + 9 <= totalPages ? currentPage + 9 : totalPages)
+                  )}">
+                <a th:href="@{/pokemon/index(page=${i})}" 
+                   th:text="${i}" 
+                   th:classappend="${i == currentPage} ? ' active'" 
+                   class="page-btn"></a>
+            </span>
 
-        <!-- Botón siguiente -->
-        <a th:if="${currentPage < totalPages}" 
-           th:href="@{/pokemon/index(page=${currentPage + 1})}" 
-           class="page-btn">Siguiente &raquo;</a>
-    </div>
+            <!-- Botón siguiente -->
+            <a th:if="${currentPage < totalPages}" 
+               th:href="@{/pokemon/index(page=${currentPage + 1})}" 
+               class="page-btn">Siguiente &raquo;</a>
+        </div>
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
 
-            /* ---------- Utilidades: particles, appear, delegación click ---------- */
 
-            // GENERAR PARTICULAS (una sola vez)
-            (function createParticles() {
-                const container = document.getElementById("particles");
-                if (!container)
-                    return;
-                if (container.dataset.created)
-                    return;
-                for (let i = 0; i < 35; i++) {
-                    const particle = document.createElement("div");
-                    particle.className = "particle";
+                // GENERAR PARTICULAS (una sola vez)
+                (function createParticles() {
+                    const container = document.getElementById("particles");
+                    if (!container)
+                        return;
+                    if (container.dataset.created)
+                        return;
+                    for (let i = 0; i < 35; i++) {
+                        const particle = document.createElement("div");
+                        particle.className = "particle";
 
-                    const size = Math.random() * 6 + 3;
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
+                        const size = Math.random() * 6 + 3;
+                        particle.style.width = `${size}px`;
+                        particle.style.height = `${size}px`;
 
-                    particle.style.left = `${Math.random() * 100}%`;
-                    particle.style.bottom = `-${10 + Math.random() * 40}px`;
+                        particle.style.left = `${Math.random() * 100}%`;
+                        particle.style.bottom = `-${10 + Math.random() * 40}px`;
 
-                    particle.style.animationDuration = `${6 + Math.random() * 8}s`;
-                    particle.style.animationDelay = `${Math.random() * 5}s`;
+                        particle.style.animationDuration = `${6 + Math.random() * 8}s`;
+                        particle.style.animationDelay = `${Math.random() * 5}s`;
 
-                    container.appendChild(particle);
+                        container.appendChild(particle);
+                    }
+                    container.dataset.created = '1';
+                })();
+
+                function runAppearOnCards() {
+                    const cards = document.querySelectorAll('.container > .card');
+                    cards.forEach((card, i) => {
+                        card.classList.remove('loaded');
+                        setTimeout(() => card.classList.add('loaded'), 80 * (i % 6));
+                    });
                 }
-                container.dataset.created = '1';
-            })();
 
-            // ANIMACIÓN "appear" para las cards (stagger)
-            function runAppearOnCards() {
-                const cards = document.querySelectorAll('.container > .card');
-                cards.forEach((card, i) => {
-                    card.classList.remove('loaded'); // reinicia para poder reproducir animación
-                    setTimeout(() => card.classList.add('loaded'), 80 * (i % 6));
+                document.addEventListener('click', function (e) {
+                    const card = e.target.closest('.card');
+                    if (!card)
+                        return;
+
+                    if (e.target.closest('button') || e.target.closest('a'))
+                        return;
+
+                    if (window.innerWidth <= 900) {
+                        card.classList.toggle('flip');
+                    }
                 });
-            }
 
-            // DELEGACIÓN: flip en mobile / pequeño ancho
-            // Usamos delegación en document para que funcione aunque reemplacemos .container
-            document.addEventListener('click', function (e) {
-                const card = e.target.closest('.card');
-                if (!card)
+                runAppearOnCards();
+
+
+                const form = document.getElementById("formBusqueda");
+                if (!form)
                     return;
 
-                // si el click fue en un botón o link, no togglear flip
-                if (e.target.closest('button') || e.target.closest('a'))
-                    return;
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault();
 
-                if (window.innerWidth <= 900) {
-                    card.classList.toggle('flip');
-                }
-            });
+                    const nombre = (document.getElementById("pokemon") || {}).value || '';
+                    const tipo = (document.getElementById("tipo") || {}).value || '';
 
-            // Inicial
-            runAppearOnCards();
 
-            /* ---------- AJAX search handler (reemplaza la inyección errónea de detalle) ---------- */
+                    if (!nombre) {
+                        alert("Por favor, escribe el nombre o número del Pokémon.");
+                        return;
+                    }
 
-            const form = document.getElementById("formBusqueda");
-            if (!form)
-                return;
+                    const url = `/pokemon/index?search=${encodeURIComponent(nombre)}&tipo=${encodeURIComponent(tipo)}`;
 
-            form.addEventListener('submit', function (event) {
-                event.preventDefault(); // evitamos recarga completa
+                    fetch(url, {
+                        method: 'GET',
+                        headers: {'X-Requested-With': 'XMLHttpRequest'}
+                    })
+                            .then(resp => {
+                                if (!resp.ok)
+                                    throw new Error('Respuesta no OK');
+                                return resp.text();
+                            })
+                            .then(htmlText => {
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(htmlText, 'text/html');
 
-                const nombre = (document.getElementById("pokemon") || {}).value || '';
-                const tipo = (document.getElementById("tipo") || {}).value || '';
+                                const newContainer = doc.querySelector('.container');
+                                const newPagination = doc.querySelector('.pagination');
+                                const newError = doc.querySelector('.error-message');
 
-                // si quieres permitir buscar vacío para mostrar todo: descomenta la siguiente línea
-                // if (!nombre && !tipo) { window.location.href = '/pokemon/index'; return; }
+                                const currentContainer = document.querySelector('.container');
+                                const currentPagination = document.querySelector('.pagination');
+                                const currentError = document.querySelector('.error-message');
 
-                if (!nombre) {
-                    // Comportamiento previo: requerir nombre; si prefieres mostrar todos, cambia a redirect comentado arriba
-                    alert("Por favor, escribe el nombre o número del Pokémon.");
-                    return;
-                }
-
-                // Construimos la URL que el controller Index maneja (óptimo: ?search=... )
-                // Usamos "search" como query param porque en el controller se espera 'search'.
-                const url = `/pokemon/index?search=${encodeURIComponent(nombre)}&tipo=${encodeURIComponent(tipo)}`;
-
-                fetch(url, {
-                    method: 'GET',
-                    headers: {'X-Requested-With': 'XMLHttpRequest'}
-                })
-                        .then(resp => {
-                            if (!resp.ok)
-                                throw new Error('Respuesta no OK');
-                            return resp.text();
-                        })
-                        .then(htmlText => {
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(htmlText, 'text/html');
-
-                            const newContainer = doc.querySelector('.container');
-                            const newPagination = doc.querySelector('.pagination');
-                            const newError = doc.querySelector('.error-message');
-
-                            const currentContainer = document.querySelector('.container');
-                            const currentPagination = document.querySelector('.pagination');
-                            const currentError = document.querySelector('.error-message');
-
-                            // Reemplazar container (3 casos: 1) server devuelve .container; 2) devuelve solo tarjetas; 3) devuelve otra cosa)
-                            if (newContainer && currentContainer) {
-                                currentContainer.innerHTML = newContainer.innerHTML;
-                            } else {
-                                // fallback: si no viene .container, busca si la respuesta contiene al menos .card
-                                const anyCard = doc.querySelector('.card');
-                                if (anyCard && currentContainer) {
-                                    // si el server devolvió solamente las cards, insertalas
-                                    // (esto cubre respuestas parciales que devuelven únicamente los items)
-                                    currentContainer.innerHTML = doc.body.innerHTML;
+                                if (newContainer && currentContainer) {
+                                    currentContainer.innerHTML = newContainer.innerHTML;
                                 } else {
-                                    // caso extremo: recargar la página con la respuesta completa
-                                    document.open();
-                                    document.write(htmlText);
-                                    document.close();
-                                    return;
+                                    const anyCard = doc.querySelector('.card');
+                                    if (anyCard && currentContainer) {
+                                        currentContainer.innerHTML = doc.body.innerHTML;
+                                    } else {
+                                        document.open();
+                                        document.write(htmlText);
+                                        document.close();
+                                        return;
+                                    }
                                 }
-                            }
 
-                            // Reemplazar paginación
-                            if (newPagination) {
-                                if (currentPagination) {
-                                    currentPagination.innerHTML = newPagination.innerHTML;
+                                if (newPagination) {
+                                    if (currentPagination) {
+                                        currentPagination.innerHTML = newPagination.innerHTML;
+                                    } else {
+                                        const cont = document.querySelector('.container');
+                                        cont.insertAdjacentElement('afterend', newPagination.cloneNode(true));
+                                    }
                                 } else {
-                                    // insertar después del container
-                                    const cont = document.querySelector('.container');
-                                    cont.insertAdjacentElement('afterend', newPagination.cloneNode(true));
+                                    if (currentPagination)
+                                        currentPagination.remove();
                                 }
-                            } else {
-                                if (currentPagination)
-                                    currentPagination.remove();
-                            }
 
-                            // Reemplazar mensaje de error
-                            if (newError) {
-                                if (currentError)
-                                    currentError.replaceWith(newError.cloneNode(true));
-                                else {
-                                    const cont = document.querySelector('.container');
-                                    cont.insertAdjacentElement('beforebegin', newError.cloneNode(true));
+                                if (newError) {
+                                    if (currentError)
+                                        currentError.replaceWith(newError.cloneNode(true));
+                                    else {
+                                        const cont = document.querySelector('.container');
+                                        cont.insertAdjacentElement('beforebegin', newError.cloneNode(true));
+                                    }
+                                } else {
+                                    if (currentError)
+                                        currentError.remove();
                                 }
-                            } else {
-                                if (currentError)
-                                    currentError.remove();
-                            }
 
-                            // Reaplicar efectos a las cards y demás (appear)
-                            runAppearOnCards();
+                                runAppearOnCards();
 
-                            // Actualizar la URL visible (para back/forward)
-                            try {
-                                history.pushState({}, '', url);
-                            } catch (e) {
-                                // no crítico
-                            }
-                        })
-                        .catch(err => {
-                            console.error('Error en búsqueda AJAX:', err);
-                            alert('Ocurrió un error al buscar. Revisa la consola.');
-                        });
+                                try {
+                                    history.pushState({}, '', url);
+                                } catch (e) {
+                                }
+                            })
+                            .catch(err => {
+                                console.error('Error en búsqueda AJAX:', err);
+                                alert('Ocurrió un error al buscar. Revisa la consola.');
+                            });
+                });
+
+                window.addEventListener('popstate', function () {
+                    location.reload();
+                });
+
             });
+        </script>
 
-            // Cuando el usuario use Back/Forward, recargar para mantener consistencia (puedes ajustar)
-            window.addEventListener('popstate', function () {
-                location.reload();
-            });
-
-        });
-    </script>
-
-    <!--    <script>
+        <script>
             document.addEventListener("DOMContentLoaded", function () {
                 // Esperamos a que termine la animación de carga
                 setTimeout(function () {
                     document.getElementById("loading-screen").style.display = "none";
                 }, 3200); // 3.2 segundos
             });
-        </script>-->
-
-    <script>
-        function getTypeColor(type) {
-            const tempDiv = document.createElement('div');
-            tempDiv.classList.add('type', type.toLowerCase());
-            document.body.appendChild(tempDiv);
-            const color = getComputedStyle(tempDiv).backgroundColor;
-            document.body.removeChild(tempDiv);
-            return color;
-        }
-
-        function getTypeGradient(types) {
-            const colors = types.map(type => getTypeColor(type));
-            if (colors.length === 1) {
-                // degradado suave de un solo color
-                return `linear-gradient(135deg, ${colors[0]}, ${colors[0]}CC)`;
-            } else {
-                // degradado entre ambos colores
-                return `linear-gradient(135deg, ${colors[0]}, ${colors[1]})`;
-            }
-        }
-
-        document.querySelectorAll('.container > .card').forEach(card => {
-            const types = card.dataset.types.split(','); // suponiendo que guardas los tipos en data-types
-            card.style.background = getTypeGradient(types);
-        });
-
-    </script>
-</body>
+        </script>
+    </body>
 </html>
