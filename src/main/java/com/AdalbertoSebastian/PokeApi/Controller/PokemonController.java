@@ -22,12 +22,13 @@ public class PokemonController {
     public String Index(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(required = false) String search,
+            @RequestParam(required = false) List<String> tipo,
             Model model) {
 
         int pageSize = 25;
 
         // Caso 1: búsqueda
-        if (search != null && !search.isEmpty()) {
+        if (search != null && !search.isEmpty() && (tipo == null )) { // busqueda por nombre o id
             PokemonDetail pokemon = PokemonService.getPokemonDetail(search);
 
             if (pokemon != null) {
@@ -44,8 +45,44 @@ public class PokemonController {
             }
             return "PokemonIndex";
         }
+        // Caso 2: búsqueda
+        if (search != null && !search.isEmpty() && tipo != null && !tipo.isEmpty()) { // busqueda por nombre o id y por tipo(s)
+            List<PokemonDetail> pokemon =  PokemonService.getPokemonDetailsByTipoAndNombre(search, tipo);
 
-        // Caso 2: paginación normal
+            if (pokemon != null) {
+                PokemonService.assignValidSprites(pokemon);
+
+                model.addAttribute("pokemons", List.of(pokemon));
+                model.addAttribute("currentPage", 1);
+                model.addAttribute("totalPages", 1);
+            } else {
+                model.addAttribute("pokemons", List.of());
+                model.addAttribute("currentPage", 1);
+                model.addAttribute("totalPages", 1);
+                model.addAttribute("error", "⚠️ No se encontró el Pokémon: " + search);
+            }
+            return "PokemonIndex";
+        }
+        // Caso 3: búsqueda
+        if ((search == null ) && tipo != null && !tipo.isEmpty()) { // busqueda por tipo o tipos
+            List<PokemonDetail> pokemon = PokemonService.getPokemonDetailByTipo(tipo);
+
+            if (pokemon != null) {
+                PokemonService.assignValidSprites(pokemon);
+
+                model.addAttribute("pokemons", pokemon);
+                model.addAttribute("currentPage", 1);
+                model.addAttribute("totalPages", 1);
+            } else {
+                model.addAttribute("pokemons", List.of());
+                model.addAttribute("currentPage", 1);
+                model.addAttribute("totalPages", 1);
+                model.addAttribute("error", "⚠️ No se encontró el Pokémon: " + search);
+            }
+            return "PokemonIndex";
+        }
+
+        // Caso 4: paginación normal
         int totalPages = PokemonService.getTotalPages(pageSize);
 
         if (page < 1) {

@@ -656,6 +656,27 @@
                     width: 100%;
                 }
             }
+            .tags-container {
+                margin-top: 10px;
+            }
+
+            .tag {
+                display: inline-block;
+                background-color: #007bff;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+                margin: 5px;
+                font-size: 14px;
+                position: relative;
+            }
+
+            .tag .remove {
+                cursor: pointer;
+                margin-left: 8px;
+                color: white;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
@@ -697,6 +718,7 @@
                 <option value="dark">Siniestro</option>
                 <option value="steel">Acero</option>
             </select>
+            <div class="tags-container" id="tagsContainer"></div>
 
             <div class="search-input-wrapper">
                 <input type="text" class="search-input" placeholder="Nombre o número (ej. Pikachu o 25)"
@@ -843,24 +865,75 @@
 
                 runAppearOnCards();
 
+                // llenar el contain de los dos tipos de pokemon antes de hacer la accion del formulario
+                const selectedValues = [];
 
+                const select = document.getElementById("tipo");
+                const tagsContainer = document.getElementById("tagsContainer");
                 const form = document.getElementById("formBusqueda");
                 if (!form)
                     return;
 
+                select.addEventListener("change", function () {
+                    const selected = select.value;
+
+                    if (selectedValues.length >= 2) {
+                        alert("Solo puedes seleccionar hasta 2 opciones.");
+                        select.value = "";
+                        return;
+                    }
+
+                    if (selectedValues.includes(selected)) {
+                        select.value = "";
+                        return;
+                    }
+
+                    selectedValues.push(selected);
+                    renderTags();
+                    select.value = "";
+                });
+
+                function renderTags() {
+                    tagsContainer.innerHTML = "";
+
+                    selectedValues.forEach((val, index) => {
+                        const tag = document.createElement("div");
+                        tag.className = "tag";
+                        tag.innerHTML = `${val} <span class="remove" data-index="${index}">&times;</span>`;
+                        tagsContainer.appendChild(tag);
+                    });
+
+                    document.querySelectorAll(".remove").forEach(btn => {
+                        btn.addEventListener("click", function () {
+                            const index = this.getAttribute("data-index");
+                            selectedValues.splice(index, 1);
+                            renderTags();
+                        });
+                    });
+                }
+                // accion del form de busqueda
                 form.addEventListener('submit', function (event) {
                     event.preventDefault();
 
                     const nombre = (document.getElementById("pokemon") || {}).value || '';
-                    const tipo = (document.getElementById("tipo") || {}).value || '';
+//                    const tipo = (document.getElementById("tipo") || {}).value || '';
+                    document.querySelectorAll('input[name="tipo"]').forEach(el => el.remove());
 
+                    // Agregar input hidden por cada tipo seleccionado
+                    selectedValues.forEach(val => {
+                        const hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = 'tipo';
+                        hiddenInput.value = val;
+                        form.appendChild(hiddenInput);
+                    });
 
-                    if (!nombre) {
-                        alert("Por favor, escribe el nombre o número del Pokémon.");
-                        return;
-                    }
+                    const queryParams = new URLSearchParams();
+                    if (nombre) queryParams.append('search', nombre);
+                    selectedValues.forEach(val => queryParams.append('tipo', val));
 
-                    const url = `/pokemon/index?search=${encodeURIComponent(nombre)}&tipo=${encodeURIComponent(tipo)}`;
+//                    const url = `/pokemon/index?search=${encodeURIComponent(nombre)}&tipo=${encodeURIComponent(tipo)}`;
+                    const url = `/pokemon/index?${queryParams.toString()}`;
 
                     fetch(url, {
                         method: 'GET',
@@ -929,7 +1002,7 @@
                                 }
                             })
                             .catch(err => {
-                                console.error('Error en búsqueda AJAX:', err);
+                                console.error('Error en búsqueda:', err);
                                 alert('Ocurrió un error al buscar. Revisa la consola.');
                             });
                 });

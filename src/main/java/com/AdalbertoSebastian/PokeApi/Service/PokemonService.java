@@ -53,6 +53,30 @@ public class PokemonService {
                 .orElse(null);
     }
 
+    public List<PokemonDetail> getPokemonDetailsByTipoAndNombre(String key, List<String> tipos) {
+        return pokemonDetailsCacheById.values().stream()
+                .filter(p -> p.getName().equalsIgnoreCase(key))
+                .filter(pokemon -> {
+                    List<String> tiposPokemon = pokemon.getTypes().stream()
+                            .map(type -> type.getType().getName())
+                            .collect(Collectors.toList());
+                    return tipos.containsAll(tiposPokemon) || tiposPokemon.containsAll(tipos);
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<PokemonDetail> getPokemonDetailByTipo(List<String> tipos) {
+        return pokemonDetailsCacheById.values().stream()
+                .filter(pokemon -> {
+                    List<String> tiposPokemon = pokemon.getTypes().stream()
+                            .map(type -> type.getType().getName())
+                            .collect(Collectors.toList());
+//                return tiposPokemon.containsAll(tiposPokemon) || tiposPokemon.containsAll(tipos);
+                    return tiposPokemon.stream().anyMatch(tipos::contains);
+                })
+                .collect(Collectors.toList());
+    }
+
     @PostConstruct
     public void loadPokemonPages() {
         int limit = 25;// pokemons conusltados

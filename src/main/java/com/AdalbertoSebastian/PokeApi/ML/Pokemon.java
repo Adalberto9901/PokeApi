@@ -16,7 +16,7 @@ public class Pokemon {
     private Species species;
     private Sprites sprites;
     private List<Stats> stats;
-    private List<Type> types;
+    private Types types;
 
     public int getId() {
         return id;
@@ -106,11 +106,11 @@ public class Pokemon {
         this.stats = stats;
     }
 
-    public List<Type> getTypes() {
+    public Types getTypes() {
         return types;
     }
 
-    public void setTypes(List<Type> types) {
+    public void setTypes(Types types) {
         this.types = types;
     }
 
