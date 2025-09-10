@@ -7,8 +7,8 @@
 
         <style>
             body {
-                font-family: 'Segoe UI', sans-serif;
-                background: linear-gradient(to bottom, #e04434, #e04434);
+                font-family: 'Press Start 2P', sans-serif;
+                background: linear-gradient(to bottom, #e63946, #a80000);
                 margin: 0;
                 padding: 0;
                 overflow-x: hidden;
@@ -159,7 +159,8 @@
                 transform-style: preserve-3d;
                 transition: transform 0.75s cubic-bezier(.2,.9,.2,1);
                 min-height: 360px;
-                border-radius: 20px;
+                border-radius: 25px;
+                border: 5px solid #222;
             }
 
             .card:hover .card-inner,
@@ -380,7 +381,7 @@
                 padding: 8px 14px;
                 border-radius: 999px;
                 font-weight: 700;
-                border: none;
+                border: 2px solid #000;
                 cursor: pointer;
                 box-shadow: 0 6px 12px rgba(0,0,0,0.12);
                 background: #FFCB05;
@@ -619,11 +620,6 @@
                                   th:classappend="' ' + ${tipo.type.name}">
                             </span>
                         </div>
-
-                        <div class="card-actions">
-                            <button class="btn" type="button" th:onclick="'location.href=\'/api/pokemon/' + ${pokemon.id} + '\';'">Detail</button>
-                            <button class="btn" type="button" onclick="this.closest('.card').classList.toggle('flip')">Flip</button>
-                        </div>
                     </div>
 
                     <!-- BACK -->
@@ -646,7 +642,7 @@
                         </div>
                         <div style="flex:1;"></div>
                         <div style="width:100%; display:flex; justify-content:center; margin-top:12px;">
-                            <button class="btn" type="button" onclick="this.closest('.card').classList.toggle('flip')">Back</button>
+                            <button class="btn" type="button" th:onclick="'location.href=\'/pokemon/detalle/' + ${pokemon.id} + '\';'">Detail</button>
                         </div>
                     </div>
                 </div>
@@ -660,7 +656,6 @@
                th:href="@{/pokemon/index(page=${currentPage - 1})}" 
                class="page-btn">&laquo; Anterior</a>
 
-            <!-- Números de página (solo 10 alrededor de la actual) -->
             <span th:each="i : ${#numbers.sequence(
                   (currentPage > 10 ? currentPage - 10 : 1),
                   (currentPage + 9 <= totalPages ? currentPage + 9 : totalPages)
@@ -717,8 +712,8 @@
                 }
             });
         </script>
-        
-                <script>
+
+        <script>
             document.getElementById("formBusqueda").addEventListener("submit", function (event) {
                 event.preventDefault(); // Evita el envío tradicional del formulario
 
