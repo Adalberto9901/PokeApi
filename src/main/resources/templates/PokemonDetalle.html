@@ -179,30 +179,30 @@
             const values = stats.map(s => s.base_stat);
             const ctx = document.getElementById('radarChart').getContext('2d');
             new Chart(ctx, {
-                type: 'radar',
-                data: {
+            type: 'radar',
+                    data: {
                     labels: labels,
-                    datasets: [{
+                            datasets: [{
                             data: values, // 👈 sin label
-                            fill: true,
-                            backgroundColor: 'rgba(3, 169, 244, 0.3)',
-                            borderColor: 'rgba(3, 169, 244, 1)',
-                            pointBackgroundColor: 'rgba(3, 169, 244, 1)',
-                        }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            max: 200,
-                            angleLines: {color: '#666'},
-                            grid: {color: '#999'},
-                            pointLabels: {color: '#fff', font: {size: 10}}
-                        }
+                                    fill: true,
+                                    backgroundColor: 'rgba(3, 169, 244, 0.3)',
+                                    borderColor: 'rgba(3, 169, 244, 1)',
+                                    pointBackgroundColor: 'rgba(3, 169, 244, 1)',
+                            }]
                     },
-                    plugins: {legend: {display: false}} // 👈 se quita la leyenda
-                }
+                    options: {
+                    responsive: true,
+                            scales: {
+                            r: {
+                            beginAtZero: true,
+                                    max: 200,
+                                    angleLines: {color: '#666'},
+                                    grid: {color: '#999'},
+                                    pointLabels: {color: '#fff', font: {size: 10}}
+                            }
+                            },
+                            plugins: {legend: {display: false}} // 👈 se quita la leyenda
+                    }
             });
         </script>
 
