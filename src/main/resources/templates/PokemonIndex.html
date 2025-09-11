@@ -229,8 +229,8 @@
             }
             .pokemon-id {
                 font-weight: 700;
-                color: #666;
-                font-size: 13px;
+                color: #000;
+                font-size: 17px;
                 margin-bottom: 6px;
             }
             .card-front h2 {
@@ -929,7 +929,8 @@
                     });
 
                     const queryParams = new URLSearchParams();
-                    if (nombre) queryParams.append('search', nombre);
+                    if (nombre)
+                        queryParams.append('search', nombre);
                     selectedValues.forEach(val => queryParams.append('tipo', val));
 
 //                    const url = `/pokemon/index?search=${encodeURIComponent(nombre)}&tipo=${encodeURIComponent(tipo)}`;
@@ -1021,5 +1022,38 @@
                 }, 3200);
             });
         </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const cards = document.querySelectorAll(".card-front");
+
+                cards.forEach(card => {
+                    const typeElements = card.querySelectorAll(".type");
+                    const types = Array.from(typeElements).map(el => {
+                        return Array.from(el.classList).find(cls => cls !== "type");
+                    });
+
+                    function getTypeColor(typeName) {
+                        const temp = document.createElement("span");
+                        temp.className = `type ${typeName}`;
+                        temp.style.display = "none";
+                        document.body.appendChild(temp);
+                        const color = getComputedStyle(temp).backgroundColor;
+                        temp.remove();
+                        return color;
+                    }
+
+                    const colors = types.map(getTypeColor);
+
+                    if (colors.length === 1) {
+                        card.style.background = colors[0];
+                    } else if (colors.length === 2) {
+                        card.style.background = `linear-gradient(to right, ${colors[0]} 50%, ${colors[1]} 50%)`;
+                    } else {
+                        card.style.background = "#ccc"; 
+                    }
+                });
+            });
+        </script>
+
     </body>
 </html>

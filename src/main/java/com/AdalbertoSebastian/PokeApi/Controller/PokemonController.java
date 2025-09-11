@@ -52,7 +52,7 @@ public class PokemonController {
             if (pokemon != null) {
                 PokemonService.assignValidSprites(pokemon);
 
-                model.addAttribute("pokemons", List.of(pokemon));
+                model.addAttribute("pokemons", pokemon);
                 model.addAttribute("currentPage", 1);
                 model.addAttribute("totalPages", 1);
             } else {
