@@ -2,8 +2,8 @@ package com.AdalbertoSebastian.PokeApi.ML;
 
 import java.util.List;
 
-
 public class PokemonDetail {
+
     private int id;
     private String name;
     private boolean isDefault;
@@ -12,6 +12,7 @@ public class PokemonDetail {
     private int height;
     private int weight;
     private String locationAreaEncounters;
+    private String background;
 
     private List<Abilities> abilities;
     private List<Forms> forms;
@@ -24,6 +25,14 @@ public class PokemonDetail {
 
     public int getId() {
         return id;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 
     public void setId(int id) {
@@ -149,28 +158,28 @@ public class PokemonDetail {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
     public static class Species {
 
-    private String name;
-    private String url;
+        private String name;
+        private String url;
 
-    public String getName() {
-        return name;
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-}
-    
 }

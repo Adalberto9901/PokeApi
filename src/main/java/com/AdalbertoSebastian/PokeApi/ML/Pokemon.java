@@ -9,6 +9,7 @@ public class Pokemon {
     private int height;
     private String name;
     private int weight;
+    private String background;
 
     private List<Ability> abilities;
     private List<Moves> moves;
@@ -112,6 +113,14 @@ public class Pokemon {
 
     public void setTypes(Types types) {
         this.types = types;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 
 }

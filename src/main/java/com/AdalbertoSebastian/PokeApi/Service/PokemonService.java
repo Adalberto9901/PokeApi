@@ -30,7 +30,28 @@ public class PokemonService {
     private final List<Results> allPokemons = new ArrayList<>();
     private final Map<Integer, PokemonDetail> pokemonDetailsCacheById = new ConcurrentHashMap<>();
 
-    private final ExecutorService executor = Executors.newFixedThreadPool(20); // cantidad de hilos
+    private final ExecutorService executor = Executors.newFixedThreadPool(40); // cantidad de hilos
+
+    private static final Map<String, String> TYPE_COLORS = Map.ofEntries(
+            Map.entry("grass", "#78C850"),
+            Map.entry("fire", "#F08030"),
+            Map.entry("water", "#4068c7"),
+            Map.entry("bug", "#A8B820"),
+            Map.entry("normal", "#A8A878"),
+            Map.entry("poison", "#A040A0"),
+            Map.entry("electric", "#F8D030"),
+            Map.entry("ground", "#E0C068"),
+            Map.entry("fairy", "#EE99AC"),
+            Map.entry("fighting", "#C03028"),
+            Map.entry("flying", "#9ad1d6"),
+            Map.entry("psychic", "#F85888"),
+            Map.entry("rock", "#B8A038"),
+            Map.entry("ghost", "#705898"),
+            Map.entry("ice", "#6dc0d1"),
+            Map.entry("dragon", "#7038F8"),
+            Map.entry("dark", "#705848"),
+            Map.entry("steel", "#B8B8D0")
+    );
 
     public List<Results> getAllPokemons() {
         return allPokemons;
@@ -71,7 +92,6 @@ public class PokemonService {
                     List<String> tiposPokemon = pokemon.getTypes().stream()
                             .map(type -> type.getType().getName())
                             .collect(Collectors.toList());
-//                return tiposPokemon.containsAll(tiposPokemon) || tiposPokemon.containsAll(tipos);
                     return tiposPokemon.stream().anyMatch(tipos::contains);
                 })
                 .collect(Collectors.toList());
@@ -79,7 +99,7 @@ public class PokemonService {
 
     @PostConstruct
     public void loadPokemonPages() {
-        int limit = 25;// pokemons conusltados
+        int limit = 25;// pokemons consultados
         for (int i = 0; i < 41; i++) {// numero de ciclos para los 1025 pokes
             int offset = i * limit;
             String url = BASE_URL + "?offset=" + offset + "&limit=" + limit;
@@ -120,11 +140,16 @@ public class PokemonService {
                             });
                 }
 
-                // Guardar en caché
+                // Asignamos el degradado
                 if (detail != null) {
-                    // consulta por id o por nombre del pokemon
-                    pokemonDetailsCacheById.put(detail.getId(), detail);
+                    List<String> tiposPokemon = detail.getTypes().stream()
+                            .map(type -> type.getType().getName())
+                            .collect(Collectors.toList());
 
+                    String background = generateBackground(tiposPokemon);
+                    detail.setBackground(background);
+
+                    pokemonDetailsCacheById.put(detail.getId(), detail);
                 }
 
             } catch (Exception ex) {
@@ -144,7 +169,6 @@ public class PokemonService {
         executor.shutdown();
         System.out.println(" Pokemones y detalles cargados en memoria: " + pokemonDetailsCacheById.size());
     }
-// evaluar si el dato recibido es un int o string 
 
     public boolean isNumeric(String str) {
         if (str == null) {
@@ -158,7 +182,7 @@ public class PokemonService {
         }
     }
 
-// Método actualizado para asignar todos los sprites
+    // Método actualizado para asignar todos los sprites tipo .gif
     public void assignValidSprites(List<PokemonDetail> pokemons) {
         for (PokemonDetail pokemon : pokemons) {
             int id = pokemon.getId();
@@ -205,4 +229,19 @@ public class PokemonService {
         return (int) Math.ceil((double) pokemonDetailsCacheById.size() / pageSize);
     }
 
+    //METODO PARA GENERAR EL DEGRADADO EN LA CARD DEL POKEMON
+    private String generateBackground(List<String> types) {
+        if (types == null || types.isEmpty()) {
+            return "#fff"; // fallback
+        }
+
+        if (types.size() == 1) {
+            return TYPE_COLORS.getOrDefault(types.get(0).toLowerCase(), "#fff");
+        }
+
+        String color1 = TYPE_COLORS.getOrDefault(types.get(0).toLowerCase(), "#fff");
+        String color2 = TYPE_COLORS.getOrDefault(types.get(1).toLowerCase(), "#fff");
+
+        return "linear-gradient(135deg, " + color1 + ", " + color2 + ")";
+    }
 }
