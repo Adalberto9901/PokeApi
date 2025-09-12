@@ -7,7 +7,7 @@
 
         <style>
             body {
-                font-family: 'Press Start 2P', sans-serif;
+                font-family: 'Press Start 2P', monospace;
                 background: linear-gradient(to bottom, #e63946, #a80000);
                 margin: 0;
                 padding: 0;
@@ -1047,9 +1047,9 @@
                     if (colors.length === 1) {
                         card.style.background = colors[0];
                     } else if (colors.length === 2) {
-                        card.style.background = `linear-gradient(to right, ${colors[0]} 50%, ${colors[1]} 50%)`;
+                        card.style.background = `linear-gradient(to right, ${colors[0]} 40%, ${colors[0]} 45%, ${colors[1]} 55%, ${colors[1]} 60%)`;
                     } else {
-                        card.style.background = "#ccc"; 
+                        card.style.background = "#ccc";
                     }
                 });
             });
