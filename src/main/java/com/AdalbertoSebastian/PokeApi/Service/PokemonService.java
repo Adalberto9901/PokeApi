@@ -92,7 +92,7 @@ public class PokemonService {
                     List<String> tiposPokemon = pokemon.getTypes().stream()
                             .map(type -> type.getType().getName())
                             .collect(Collectors.toList());
-                    return tiposPokemon.stream().anyMatch(tipos::contains);
+                    return tiposPokemon.stream().allMatch(tipos::contains);
                 })
                 .collect(Collectors.toList());
     }
