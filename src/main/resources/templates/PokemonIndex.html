@@ -589,11 +589,11 @@
                 height: 50%;
                 background: red;
             }
-
+            /*pertnece a la bolita de en medio*/
             .pokeball::after {
                 content: "";
                 position: absolute;
-                top: 35%;
+                top: 45%;
                 left: 35%;
                 width: 30%;
                 height: 30%;
@@ -912,6 +912,7 @@
                         });
                     });
                 }
+
                 // accion del form de busqueda
                 form.addEventListener('submit', function (event) {
                     event.preventDefault();
@@ -934,7 +935,6 @@
                         queryParams.append('search', nombre);
                     selectedValues.forEach(val => queryParams.append('tipo', val));
 
-//                    const url = `/pokemon/index?search=${encodeURIComponent(nombre)}&tipo=${encodeURIComponent(tipo)}`;
                     const url = `/pokemon/index?${queryParams.toString()}`;
 
                     fetch(url, {
@@ -995,6 +995,7 @@
                                     if (currentError)
                                         currentError.remove();
                                 }
+                                applyCardBackgrounds();
 
                                 runAppearOnCards();
 
@@ -1002,6 +1003,7 @@
                                     history.pushState({}, '', url);
                                 } catch (e) {
                                 }
+
                             })
                             .catch(err => {
                                 console.error('Error en búsqueda:', err);
@@ -1014,17 +1016,13 @@
                 });
 
             });
-        </script>
 
-        <script>
             document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(function () {
                     document.getElementById("loading-screen").style.display = "none";
                 }, 3200);
             });
-        </script>
-        
-        <script>
+
             function applyCardBackgrounds() {
                 const cards = document.querySelectorAll(".card-front");
 
@@ -1057,16 +1055,13 @@
             }
 
             // Ejecutar al cargar la página
-            document.addEventListener("DOMContentLoaded", function () {
-                applyCardBackgrounds();
-            });
+            document.addEventListener("DOMContentLoaded", applyCardBackgrounds);
 
             // Ejecutar también después de cada renderizado de búsqueda o paginación
             window.addEventListener("load", function () {
                 applyCardBackgrounds();
             });
+
         </script>
-
-
     </body>
 </html>

@@ -32,27 +32,6 @@ public class PokemonService {
 
     private final ExecutorService executor = Executors.newFixedThreadPool(40); // cantidad de hilos
 
-    private static final Map<String, String> TYPE_COLORS = Map.ofEntries(
-            Map.entry("grass", "#78C850"),
-            Map.entry("fire", "#F08030"),
-            Map.entry("water", "#4068c7"),
-            Map.entry("bug", "#A8B820"),
-            Map.entry("normal", "#A8A878"),
-            Map.entry("poison", "#A040A0"),
-            Map.entry("electric", "#F8D030"),
-            Map.entry("ground", "#E0C068"),
-            Map.entry("fairy", "#EE99AC"),
-            Map.entry("fighting", "#C03028"),
-            Map.entry("flying", "#9ad1d6"),
-            Map.entry("psychic", "#F85888"),
-            Map.entry("rock", "#B8A038"),
-            Map.entry("ghost", "#705898"),
-            Map.entry("ice", "#6dc0d1"),
-            Map.entry("dragon", "#7038F8"),
-            Map.entry("dark", "#705848"),
-            Map.entry("steel", "#B8B8D0")
-    );
-
     public List<Results> getAllPokemons() {
         return allPokemons;
     }
@@ -142,12 +121,6 @@ public class PokemonService {
 
                 // Asignamos el degradado
                 if (detail != null) {
-                    List<String> tiposPokemon = detail.getTypes().stream()
-                            .map(type -> type.getType().getName())
-                            .collect(Collectors.toList());
-
-                    String background = generateBackground(tiposPokemon);
-                    detail.setBackground(background);
 
                     pokemonDetailsCacheById.put(detail.getId(), detail);
                 }
@@ -228,20 +201,5 @@ public class PokemonService {
     public int getTotalPages(int pageSize) {
         return (int) Math.ceil((double) pokemonDetailsCacheById.size() / pageSize);
     }
-
-    //METODO PARA GENERAR EL DEGRADADO EN LA CARD DEL POKEMON
-    private String generateBackground(List<String> types) {
-        if (types == null || types.isEmpty()) {
-            return "#fff"; // fallback
-        }
-
-        if (types.size() == 1) {
-            return TYPE_COLORS.getOrDefault(types.get(0).toLowerCase(), "#fff");
-        }
-
-        String color1 = TYPE_COLORS.getOrDefault(types.get(0).toLowerCase(), "#fff");
-        String color2 = TYPE_COLORS.getOrDefault(types.get(1).toLowerCase(), "#fff");
-
-        return "linear-gradient(135deg, " + color1 + ", " + color2 + ")";
-    }
+    
 }
