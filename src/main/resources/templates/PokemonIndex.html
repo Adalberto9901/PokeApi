@@ -790,7 +790,7 @@
         </div>
 
         <!-- PAGINACION -->
-        <div class="pagination" th:if="${totalPages > 1}">
+        <div class="pagination" th:if="${totalPages > 1 && tipos == null }">
             <!-- Botón anterior -->
             <a th:if="${currentPage > 1}" 
                th:href="@{/pokemon/index(page=${currentPage - 1})}" 
@@ -809,6 +809,41 @@
             <!-- Botón siguiente -->
             <a th:if="${currentPage < totalPages}" 
                th:href="@{/pokemon/index(page=${currentPage + 1})}" 
+               class="page-btn">Siguiente &raquo;</a>
+        </div>
+
+        <!-- PAGINACION DE TIPOS -->
+        <div class="pagination" th:if="${totalPages > 1 && tipos != null }">
+            <!-- Botón anterior -->
+            <a th:if="${currentPage > 1}"
+               th:href="@{/pokemon/index(
+               page=${currentPage - 1},
+               tipo=${tipos},
+               search=${search}
+               )}" 
+               class="page-btn">&laquo; Anterior</a>
+
+            <span th:each="i : ${#numbers.sequence(
+                  (currentPage > 10 ? currentPage - 10 : 1),
+                  (currentPage + 9 <= totalPages ? currentPage + 9 : totalPages)
+                  )}">
+                <a th:href="@{/pokemon/index(
+                   page=${i},
+                   tipo=${tipos},
+                   search=${search}
+                   )}" 
+                   th:text="${i}" 
+                   th:classappend="${i == currentPage} ? ' active'" 
+                   class="page-btn"></a>
+            </span>
+
+            <!-- Botón siguiente -->
+            <a th:if="${currentPage < totalPages}"
+               th:href="@{/pokemon/index(
+               page=${currentPage + 1},
+               tipo=${tipos},
+               search=${search}
+               )}" 
                class="page-btn">Siguiente &raquo;</a>
         </div>
 

@@ -66,14 +66,17 @@ public class PokemonService {
     }
 
     public List<PokemonDetail> getPokemonDetailByTipo(List<String> tipos) {
+        
         return pokemonDetailsCacheById.values().stream()
                 .filter(pokemon -> {
                     List<String> tiposPokemon = pokemon.getTypes().stream()
                             .map(type -> type.getType().getName())
                             .collect(Collectors.toList());
-                    return tiposPokemon.stream().allMatch(tipos::contains);
+//                    return tiposPokemon.stream().allMatch(tipos ::contains);
+                    return tipos.containsAll(tiposPokemon) && tiposPokemon.containsAll(tipos);
                 })
                 .collect(Collectors.toList());
+        
     }
 
     @PostConstruct
@@ -202,4 +205,23 @@ public class PokemonService {
         return (int) Math.ceil((double) pokemonDetailsCacheById.size() / pageSize);
     }
     
+    //paginacion para tipo(s)
+    public List<PokemonDetail> getPokemonDetailByTipoPaginated(List<String> tipos, int page, int size) {
+        List<PokemonDetail> allByTipo = getPokemonDetailByTipo(tipos);
+
+        int fromIndex = Math.max(0, (page - 1) * size);
+        int toIndex = Math.min(fromIndex + size, allByTipo.size());
+
+        if (fromIndex >= allByTipo.size()) {
+            return List.of(); 
+        }
+
+        return allByTipo.subList(fromIndex, toIndex);
+    }
+
+    //guarda el numero de paginas para tipo(s)
+    public int getTotalPagesForTipo(List<String> tipos, int pageSize) {
+        int totalItems = getPokemonDetailByTipo(tipos).size();
+        return (int) Math.ceil((double) totalItems / pageSize);
+    }
 }
