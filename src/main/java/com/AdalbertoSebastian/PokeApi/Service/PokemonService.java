@@ -29,6 +29,7 @@ public class PokemonService {
 
     private final List<Results> allPokemons = new ArrayList<>();
     private final Map<Integer, PokemonDetail> pokemonDetailsCacheById = new ConcurrentHashMap<>();
+//    private final Map<Integer, PokemonDetail> pokemonDetailsCacheByTipo = new ConcurrentHashMap<>();
 
     private final ExecutorService executor = Executors.newFixedThreadPool(40); // cantidad de hilos
 
@@ -54,15 +55,18 @@ public class PokemonService {
     }
 
     public List<PokemonDetail> getPokemonDetailsByTipoAndNombre(String key, List<String> tipos) {
-        return pokemonDetailsCacheById.values().stream()
-                .filter(p -> p.getName().equalsIgnoreCase(key))
-                .filter(pokemon -> {
-                    List<String> tiposPokemon = pokemon.getTypes().stream()
-                            .map(type -> type.getType().getName())
-                            .collect(Collectors.toList());
-                    return tipos.containsAll(tiposPokemon) || tiposPokemon.containsAll(tipos);
-                })
-                .collect(Collectors.toList());
+    return pokemonDetailsCacheById.values().stream()
+            .filter(p -> {
+                return p.getName().equalsIgnoreCase(key) || String.valueOf(p.getId()).equals(key);
+            })
+            .filter(pokemon -> {
+                List<String> tiposPokemon = pokemon.getTypes().stream()
+                        .map(type -> type.getType().getName())
+                        .collect(Collectors.toList());
+
+                return tipos.isEmpty() || tiposPokemon.containsAll(tipos);
+            })
+            .collect(Collectors.toList());
     }
 
     public List<PokemonDetail> getPokemonDetailByTipo(List<String> tipos) {
@@ -72,7 +76,7 @@ public class PokemonService {
                     List<String> tiposPokemon = pokemon.getTypes().stream()
                             .map(type -> type.getType().getName())
                             .collect(Collectors.toList());
-//                    return tiposPokemon.stream().allMatch(tipos ::contains);
+//                    muestra los pokemons que montipo o de dos tipos, descarta todo lo demas
                     return tipos.containsAll(tiposPokemon) && tiposPokemon.containsAll(tipos);
                 })
                 .collect(Collectors.toList());
@@ -126,6 +130,7 @@ public class PokemonService {
                 if (detail != null) {
 
                     pokemonDetailsCacheById.put(detail.getId(), detail);
+//                    pokemonDetailsCacheByTipo.put(detail.getId(), detail);
                 }
 
             } catch (Exception ex) {
@@ -221,7 +226,6 @@ public class PokemonService {
 
     //guarda el numero de paginas para tipo(s)
     public int getTotalPagesForTipo(List<String> tipos, int pageSize) {
-        int totalItems = getPokemonDetailByTipo(tipos).size();
-        return (int) Math.ceil((double) totalItems / pageSize);
+        return (int) Math.ceil((double) getPokemonDetailByTipo(tipos).size() / pageSize);
     }
 }
