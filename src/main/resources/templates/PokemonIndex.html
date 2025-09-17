@@ -678,6 +678,17 @@
                 color: white;
                 font-weight: bold;
             }
+            .especie{
+                padding: 8px 14px;
+                border-radius: 999px;
+                font-weight: 700;
+                border: 2px solid #000;
+                cursor: pointer;
+                box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+                background: #c7270e;
+                color: #FFF;
+                transition: transform .15s;
+            }
         </style>
     </head>
     <body>
@@ -759,6 +770,20 @@
                                   th:text="${tipo.type.name}" 
                                   th:classappend="' ' + ${tipo.type.name}">
                             </span>
+                        </div>
+                        
+                        <div style="width:100%; display:flex; justify-content:center; margin-top:12px;">
+                            <div class="especie" th:if="${pokemon.es_legendario}">
+                                Legendario
+                            </div>
+
+                            <div class="especie" th:if="${pokemon.es_mitico}">
+                                Singular(mítico)
+                            </div>
+
+                            <div class="especie" th:if="${!pokemon.es_legendario and !pokemon.es_mitico}">
+                                Común
+                            </div>
                         </div>
                     </div>
 

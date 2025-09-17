@@ -22,7 +22,9 @@ public class PokemonDetail {
     private List<Stats> stats;
     private List<Types> types;
     private String descripcion;
-
+    private boolean es_legendario;
+    private boolean es_mitico;
+    
     public int getId() {
         return id;
     }
@@ -180,6 +182,22 @@ public class PokemonDetail {
             this.url = url;
         }
 
+    }
+
+    public boolean isEs_legendario() {
+        return es_legendario;
+    }
+
+    public void setEs_legendario(boolean es_legendario) {
+        this.es_legendario = es_legendario;
+    }
+
+    public boolean isEs_mitico() {
+        return es_mitico;
+    }
+
+    public void setEs_mitico(boolean es_mitico) {
+        this.es_mitico = es_mitico;
     }
 
 }

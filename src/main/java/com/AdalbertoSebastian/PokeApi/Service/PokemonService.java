@@ -117,6 +117,9 @@ public class PokemonService {
                 PokemonSpecies species = speciesResponse.getBody();
 
                 if (species != null && species.getFlavor_text_entries() != null) {
+                    detail.setEs_legendario(species.isIs_legendary());
+                    detail.setEs_mitico(species.isIs_mythical());
+                    
                     species.getFlavor_text_entries().stream()
                             .filter(entry -> "es".equals(entry.getLanguage().getName()))
                             .findFirst()

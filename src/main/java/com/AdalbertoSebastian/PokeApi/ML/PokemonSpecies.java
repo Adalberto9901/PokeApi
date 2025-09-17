@@ -5,6 +5,26 @@ import java.util.List;
 
 public class PokemonSpecies {
 
+    private boolean is_legendary;
+    private boolean is_mythical;
+
+    public boolean isIs_legendary() {
+        return is_legendary;
+    }
+
+    public void setIs_legendary(boolean is_legendary) {
+        this.is_legendary = is_legendary;
+    }
+
+    public boolean isIs_mythical() {
+        return is_mythical;
+    }
+
+    public void setIs_mythical(boolean is_mythical) {
+        this.is_mythical = is_mythical;
+    }
+    
+    
     private List<FlavorTextEntry> flavor_text_entries;
 
     public List<FlavorTextEntry> getFlavor_text_entries() {

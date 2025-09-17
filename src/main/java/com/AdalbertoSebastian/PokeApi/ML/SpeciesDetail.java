@@ -6,6 +6,8 @@ import java.util.List;
 public class SpeciesDetail {
 private int base_happiness;
 private int capture_rate;
+private boolean is_legendary;
+private boolean is_mythical;
 
 private Color color;
 private List<Egg_groups> egg_groups;
@@ -28,6 +30,22 @@ private List<FlavorTextEntry> flavor_text_entries;
         this.capture_rate = capture_rate;
     }
 
+    public boolean isIs_legendary() {
+        return is_legendary;
+    }
+
+    public void setIs_legendary(boolean is_legendary) {
+        this.is_legendary = is_legendary;
+    }
+
+    public boolean isIs_mythical() {
+        return is_mythical;
+    }
+
+    public void setIs_mythical(boolean is_mythical) {
+        this.is_mythical = is_mythical;
+    }
+    
     public Color getColor() {
         return color;
     }
