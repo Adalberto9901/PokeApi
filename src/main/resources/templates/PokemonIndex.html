@@ -258,6 +258,7 @@
                 box-shadow: 0 2px 6px rgba(0,0,0,0.18);
                 transform: translateY(0);
                 transition: transform 0.25s ease;
+                border: 2px solid #000;
             }
             .card:hover .type {
                 transform: translateY(-6px);
@@ -771,7 +772,7 @@
                                   th:classappend="' ' + ${tipo.type.name}">
                             </span>
                         </div>
-                        
+
                         <div style="width:100%; display:flex; justify-content:center; margin-top:12px;">
                             <div class="especie" th:if="${pokemon.es_legendario}">
                                 Legendario
